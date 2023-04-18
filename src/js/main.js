@@ -13,30 +13,29 @@ function addBookToLibrary(title, author, pages, read) {
 	myLibrary.push(book);
 }
 
-addBookToLibrary("Hobbit", "J.R.R. Tolkien", 295, "not read yet");
-addBookToLibrary("Złodziejka książek", "Markus Zusak", 576, "not read yet");
-addBookToLibrary(
-	"Harry Potter i Kamień Filozoficzny",
-	"J.K. Rowling",
-	256,
-	"not read yet"
-);
-addBookToLibrary("Władca Pierścieni", "J.R.R. Tolkien", 1216, "not read yet");
-addBookToLibrary("1984", "George Orwell", 328, "not read yet");
-addBookToLibrary(
-	"Mistrz i Małgorzata",
-	"Michaił Bułhakow",
-	496,
-	"not read yet"
-);
-addBookToLibrary("Dziennik Anny Frank", "Anne Frank", 352, "not read yet");
-addBookToLibrary(
-	"Mężczyźni, którzy nienawidzą kobiet",
-	"Stieg Larsson",
-	644,
-	"not read yet"
-);
-addBookToLibrary("Przygody Toma Sawyera", "Mark Twain", 256, "not read yet");
+// addBookToLibrary("Złodziejka książek", "Markus Zusak", 576, "not read yet");
+// addBookToLibrary(
+// 	"Harry Potter i Kamień Filozoficzny",
+// 	"J.K. Rowling",
+// 	256,
+// 	"not read yet"
+// );
+// addBookToLibrary("Władca Pierścieni", "J.R.R. Tolkien", 1216, "not read yet");
+// addBookToLibrary("1984", "George Orwell", 328, "not read yet");
+// addBookToLibrary(
+// 	"Mistrz i Małgorzata",
+// 	"Michaił Bułhakow",
+// 	496,
+// 	"not read yet"
+// );
+// addBookToLibrary("Dziennik Anny Frank", "Anne Frank", 352, "not read yet");
+// addBookToLibrary(
+// 	"Mężczyźni, którzy nienawidzą kobiet",
+// 	"Stieg Larsson",
+// 	644,
+// 	"not read yet"
+// );
+// addBookToLibrary("Przygody Toma Sawyera", "Mark Twain", 256, "not read yet");
 
 function createCard() {
 	for (i = 0; i < myLibrary.length; i++) {
@@ -56,7 +55,7 @@ function createCard() {
 		ul.childNodes[1].textContent = myLibrary[i].pages;
 		ul.childNodes[2].textContent = myLibrary[i].read;
 	}
-	if (myLibrary.length) {
+	if (myLibrary.length || myLibrary.length === 0) {
 		const button = document.createElement("button");
 		button.classList.add("plus");
 		main.appendChild(button);
@@ -71,41 +70,60 @@ function createForm() {
 	const form = document.createElement("form");
 	main.appendChild(form);
 
-	for (let j = 0; j <= 4; j++) {
+	for (let j = 0; j <= 2; j++) {
 		// const div = document.createElement("div");
-		const label = document.createElement("label");
-		form.appendChild(label);
-		if (j === 3) {
-			label.textContent = "Readed?";
-		}
-		if (j === 4) {
-			label.innerHTML = "<!--  -->";
-		}
-	}
-	const labels = document.querySelectorAll("label");
-	labels.forEach(label => {
 		const input = document.createElement("input");
-		if (label.textContent.trim() === "Readed?") {
-			input.setAttribute("type", "checkbox");
-		} else if (label.innerHTML.trim() === "<!--  -->") {
-			input.setAttribute("type", "submit");
-		} else {
-			input.setAttribute("type", "text");
-		}
-		label.appendChild(input);
-	});
+		form.appendChild(input);
+	}
 	// Screen values
-	labels[0].childNodes[0].setAttribute("placeholder", "title");
-	labels[1].childNodes[0].setAttribute("placeholder", "author");
-	labels[2].childNodes[0].setAttribute("placeholder", "pages");
+	form.childNodes[0].setAttribute("placeholder", "title");
+	form.childNodes[1].setAttribute("placeholder", "author");
+	form.childNodes[2].setAttribute("placeholder", "pages");
 
-	// exit
+	//readed input
+	const label = document.createElement("label");
+	label.innerHTML = "Readed? <br>";
+	form.appendChild(label);
+	const readed = document.createElement("input");
+	readed.setAttribute("type", "checkbox");
+	label.appendChild(readed);
+	readed.addEventListener("change", function () {
+		if (this.checked) {
+			this.value = "readed";
+		} else {
+			this.value = "not readed";
+		}
+	});
+
+	// submit btn
+	const submit = document.createElement("input");
+	submit.setAttribute("type", "submit");
+	form.appendChild(submit);
+	submit.addEventListener("click", function (event) {
+		main.removeChild(plus);
+		addBookToLibrary(
+			form.childNodes[0].value,
+			form.childNodes[1].value,
+			form.childNodes[2].value,
+			readed.value
+		);
+		createCard();
+		main.removeChild(form);
+		event.preventDefault();
+	});
+
+	// exit btn
 	const exit = document.createElement("button");
 	exit.classList.add("exit");
 	exit.textContent = "Exit";
 	form.appendChild(exit);
+	exit.addEventListener("click", function () {
+		main.removeChild(form);
+	});
 }
-plus.addEventListener("click", function handler() {
+function handler() {
 	createForm();
 	plus.removeEventListener("click", handler);
-});
+}
+
+plus.addEventListener("click", handler);

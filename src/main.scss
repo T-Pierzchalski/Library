@@ -79,11 +79,23 @@ main {
 		flex-direction: column;
 		gap: 1em;
 		label {
-			display: flex;
-			flex-direction: row;
+			text-align: center;
 			input {
 				width: max-content;
+				padding: 0.3em;
+				cursor: pointer;
 			}
+		}
+		input[type="submit"] {
+			background: rgb(50, 100, 100);
+			color: #fff;
+			padding: 0.3em 0;
+			border-radius: 10px;
+			border: none;
+			cursor: pointer;
+		}
+		input[type="submit"]:hover {
+			background: orange;
 		}
 		.exit {
 			background: red;
