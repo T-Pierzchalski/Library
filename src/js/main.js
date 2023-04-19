@@ -40,9 +40,9 @@ function addBookToLibrary(title, author, pages, read) {
 function createCard() {
 	for (i = 0; i < myLibrary.length; i++) {
 		const card = document.createElement("article");
+		main.appendChild(card);
 		const h4 = document.createElement("h4");
 		const ul = document.createElement("ul");
-		main.appendChild(card);
 		card.appendChild(h4);
 		card.appendChild(ul);
 		for (let j = 0; j <= 3; j++) {
@@ -55,7 +55,7 @@ function createCard() {
 		ul.childNodes[1].textContent = myLibrary[i].pages;
 		ul.childNodes[2].textContent = myLibrary[i].read;
 	}
-	if (myLibrary.length || myLibrary.length === 0) {
+	if (myLibrary.length === 0) {
 		const button = document.createElement("button");
 		button.classList.add("plus");
 		main.appendChild(button);
@@ -71,7 +71,6 @@ function createForm() {
 	main.appendChild(form);
 
 	for (let j = 0; j <= 2; j++) {
-		// const div = document.createElement("div");
 		const input = document.createElement("input");
 		form.appendChild(input);
 	}
@@ -109,6 +108,7 @@ function createForm() {
 		);
 		createCard();
 		main.removeChild(form);
+		main.appendChild(plus);
 		event.preventDefault();
 	});
 
@@ -121,9 +121,12 @@ function createForm() {
 		main.removeChild(form);
 	});
 }
-function handler() {
-	createForm();
-	plus.removeEventListener("click", handler);
-}
 
-plus.addEventListener("click", handler);
+const form = document.querySelector("form");
+// function handler() {
+// 	plus.removeEventListener("click", handler);
+// }
+
+plus.addEventListener("click", () => {
+	createForm();
+});
