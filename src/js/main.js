@@ -1,4 +1,5 @@
 const main = document.querySelector("main");
+const row = document.querySelector("row");
 const myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -13,7 +14,7 @@ function addBookToLibrary(title, author, pages, read) {
 	myLibrary.push(book);
 }
 
-// addBookToLibrary("Złodziejka książek", "Markus Zusak", 576, "not read yet");
+//addBookToLibrary("Złodziejka książek", "Markus Zusak", 576, "not read yet");
 // addBookToLibrary(
 // 	"Harry Potter i Kamień Filozoficzny",
 // 	"J.K. Rowling",
@@ -38,28 +39,35 @@ function addBookToLibrary(title, author, pages, read) {
 // addBookToLibrary("Przygody Toma Sawyera", "Mark Twain", 256, "not read yet");
 
 function createCard() {
-	for (i = 0; i < myLibrary.length; i++) {
+	if (myLibrary.length > 0) {
 		const card = document.createElement("article");
-		main.appendChild(card);
+		row.appendChild(card);
 		const h4 = document.createElement("h4");
 		const ul = document.createElement("ul");
-		card.appendChild(h4);
 		card.appendChild(ul);
+		ul.appendChild(h4);
 		for (let j = 0; j <= 3; j++) {
 			const li = document.createElement("li");
 			ul.appendChild(li);
 		}
-		// Screen values
-		h4.textContent = myLibrary[i].title;
-		ul.childNodes[0].textContent = myLibrary[i].author;
-		ul.childNodes[1].textContent = myLibrary[i].pages;
-		ul.childNodes[2].textContent = myLibrary[i].read;
-	}
-	if (myLibrary.length === 0) {
+		for (let i = 0; i < myLibrary.length; i++) {
+			// Screen values
+			h4.textContent = myLibrary[i].title;
+			ul.childNodes[1].textContent = myLibrary[i].author;
+			ul.childNodes[2].textContent = myLibrary[i].pages;
+			ul.childNodes[3].textContent = myLibrary[i].read;
+		}
+	} else if (myLibrary.length === 0) {
 		const button = document.createElement("button");
 		button.classList.add("plus");
 		main.appendChild(button);
 		button.textContent = "Add new book";
+	}
+}
+function createRow() {
+	if (myLibrary.length === 0 || myLibrary.length % 4 === 0) {
+		const row = document.createElement("row");
+		main.appendChild(row);
 	}
 }
 
@@ -130,3 +138,4 @@ const form = document.querySelector("form");
 plus.addEventListener("click", () => {
 	createForm();
 });
+window.addEventListener("load", createRow);
