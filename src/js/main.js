@@ -17,45 +17,18 @@ function addBookToLibrary(title, author, pages, read) {
 	myLibrary.push(book);
 }
 
-// function selectBook() {
-// 	myLibrary.find(Book.title === h4.value);
-// }
-
-//addBookToLibrary("Złodziejka książek", "Markus Zusak", 576, "not read yet");
-// addBookToLibrary(
-// 	"Harry Potter i Kamień Filozoficzny",
-// 	"J.K. Rowling",
-// 	256,
-// 	"not read yet"
-// );
-// addBookToLibrary("Władca Pierścieni", "J.R.R. Tolkien", 1216, "not read yet");
-// addBookToLibrary("1984", "George Orwell", 328, "not read yet");
-// addBookToLibrary(
-// 	"Mistrz i Małgorzata",
-// 	"Michaił Bułhakow",
-// 	496,
-// 	"not read yet"
-// );
-// addBookToLibrary("Dziennik Anny Frank", "Anne Frank", 352, "not read yet");
-// addBookToLibrary(
-// 	"Mężczyźni, którzy nienawidzą kobiet",
-// 	"Stieg Larsson",
-// 	644,
-// 	"not read yet"
-// );
-// addBookToLibrary("Przygody Toma Sawyera", "Mark Twain", 256, "not read yet");
-
-if (myLibrary.length === 0) {
-	const button = document.createElement("button");
-	button.classList.add("plus");
-	main.appendChild(button);
-	button.textContent = "Add new book";
-}
+const button = document.createElement("button");
+button.classList.add("plus");
+main.appendChild(button);
+button.textContent = "Add new book";
 
 function createCard() {
 	if (myLibrary.length > 0) {
 		const card = document.createElement("article");
+		const div = document.createElement("div");
 		main.appendChild(card);
+		const bookId = myLibrary.length - 1;
+		card.setAttribute("id", `${bookId}`);
 		const h4 = document.createElement("h4");
 		const ul = document.createElement("ul");
 		card.appendChild(ul);
@@ -71,19 +44,31 @@ function createCard() {
 			ul.childNodes[2].textContent = myLibrary[i].pages;
 			ul.childNodes[3].textContent = myLibrary[i].read;
 		}
+		ul.appendChild(div);
 		const deleteBookBtn = document.createElement("button");
-		ul.appendChild(deleteBookBtn);
+		div.appendChild(deleteBookBtn);
 		deleteBookBtn.innerHTML = "&#x2716;";
 		deleteBookBtn.classList.add("delete-button");
-
-		const readButton = document.createElement("button");
-		readButton.classList.add("read-button");
-		readButton.innerHTML = "&#x2713;";
-		ul.appendChild(readButton);
+		deleteBookBtn.addEventListener("click", () => {
+			myLibrary.splice(bookId, 1);
+			main.removeChild(card);
+		});
+		if (ul.childNodes[3].textContent === "readed") {
+		} else {
+			const readButton = document.createElement("button");
+			readButton.classList.add("read-button");
+			readButton.innerHTML = "&#x2713;";
+			div.appendChild(readButton);
+			readButton.addEventListener("click", () => {
+				myLibrary[bookId].read = "readed";
+				ul.childNodes[3].textContent = myLibrary[bookId].read;
+				ul.childNodes[3].style.cssText = "color:green;";
+				div.removeChild(readButton);
+			});
+		}
 	}
 }
 
-createCard();
 // button
 const plus = document.querySelector(".plus");
 function createForm() {
@@ -117,12 +102,13 @@ function createForm() {
 
 	// submit btn
 	const submit = document.createElement("input");
+	submit.value = "Submit";
 	submit.setAttribute("type", "submit");
 	form.appendChild(submit);
 	submit.addEventListener("click", function (event) {
 		if (
-			form.childNodes[0].value > 0 &&
-			form.childNodes[1].value > 0 &&
+			form.childNodes[0].value &&
+			form.childNodes[1].value &&
 			form.childNodes[2].value > 0
 		) {
 			addBookToLibrary(
@@ -142,7 +128,7 @@ function createForm() {
 			if (form.childNodes[1].value < 1) {
 				form.childNodes[1].classList.toggle("alert");
 			}
-			if (form.childNodes[2].value < 1) {
+			if (form.childNodes[2].value) {
 				form.childNodes[2].classList.toggle("alert");
 			}
 		}
@@ -156,6 +142,7 @@ function createForm() {
 	form.appendChild(exit);
 	exit.addEventListener("click", function () {
 		main.removeChild(form);
+		main.appendChild(plus);
 	});
 }
 
