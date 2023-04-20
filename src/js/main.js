@@ -6,6 +6,9 @@ function Book(title, author, pages, read) {
 	this.title = title;
 	this.author = author;
 	this.pages = pages;
+	if (this.pages > 0) {
+		this.pages += " pages";
+	}
 	this.read = read;
 }
 
@@ -14,7 +17,11 @@ function addBookToLibrary(title, author, pages, read) {
 	myLibrary.push(book);
 }
 
-//addBookToLibrary("Złodziejka książek", "Markus Zusak", 576, "not read yet");
+function selectBook() {
+	myLibrary.find(Book.title === h4.value);
+}
+
+addBookToLibrary("Złodziejka książek", "Markus Zusak", 576, "not read yet");
 // addBookToLibrary(
 // 	"Harry Potter i Kamień Filozoficzny",
 // 	"J.K. Rowling",
@@ -38,10 +45,17 @@ function addBookToLibrary(title, author, pages, read) {
 // );
 // addBookToLibrary("Przygody Toma Sawyera", "Mark Twain", 256, "not read yet");
 
+if (myLibrary.length === 0) {
+	const button = document.createElement("button");
+	button.classList.add("plus");
+	main.appendChild(button);
+	button.textContent = "Add new book";
+}
+
 function createCard() {
 	if (myLibrary.length > 0) {
 		const card = document.createElement("article");
-		row.appendChild(card);
+		main.appendChild(card);
 		const h4 = document.createElement("h4");
 		const ul = document.createElement("ul");
 		card.appendChild(ul);
@@ -57,17 +71,15 @@ function createCard() {
 			ul.childNodes[2].textContent = myLibrary[i].pages;
 			ul.childNodes[3].textContent = myLibrary[i].read;
 		}
-	} else if (myLibrary.length === 0) {
-		const button = document.createElement("button");
-		button.classList.add("plus");
-		main.appendChild(button);
-		button.textContent = "Add new book";
-	}
-}
-function createRow() {
-	if (myLibrary.length === 0 || myLibrary.length % 4 === 0) {
-		const row = document.createElement("row");
-		main.appendChild(row);
+		const deleteBookBtn = document.createElement("button");
+		ul.appendChild(deleteBookBtn);
+		deleteBookBtn.innerHTML = "&#x2716;";
+		deleteBookBtn.classList.add("delete-button");
+
+		const readButton = document.createElement("button");
+		readButton.classList.add("read-button");
+		readButton.innerHTML = "&#x2713;";
+		ul.appendChild(readButton);
 	}
 }
 
@@ -80,6 +92,7 @@ function createForm() {
 
 	for (let j = 0; j <= 2; j++) {
 		const input = document.createElement("input");
+		input.setAttribute("type", "text");
 		form.appendChild(input);
 	}
 	// Screen values
@@ -93,30 +106,46 @@ function createForm() {
 	form.appendChild(label);
 	const readed = document.createElement("input");
 	readed.setAttribute("type", "checkbox");
+	readed.value = "";
 	label.appendChild(readed);
-	readed.addEventListener("change", function () {
+	function isReaded() {
 		if (this.checked) {
 			this.value = "readed";
-		} else {
-			this.value = "not readed";
 		}
-	});
+	}
+	readed.addEventListener("change", isReaded);
 
 	// submit btn
 	const submit = document.createElement("input");
 	submit.setAttribute("type", "submit");
 	form.appendChild(submit);
 	submit.addEventListener("click", function (event) {
-		main.removeChild(plus);
-		addBookToLibrary(
-			form.childNodes[0].value,
-			form.childNodes[1].value,
-			form.childNodes[2].value,
-			readed.value
-		);
-		createCard();
-		main.removeChild(form);
-		main.appendChild(plus);
+		if (
+			form.childNodes[0].value > 0 &&
+			form.childNodes[1].value > 0 &&
+			form.childNodes[2].value > 0
+		) {
+			addBookToLibrary(
+				form.childNodes[0].value,
+				form.childNodes[1].value,
+				form.childNodes[2].value,
+				readed.value
+			);
+			createCard();
+			main.removeChild(form);
+			main.appendChild(plus);
+		} else {
+			alert("error");
+			if (form.childNodes[0].value < 1) {
+				form.childNodes[0].classList.toggle("alert");
+			}
+			if (form.childNodes[1].value < 1) {
+				form.childNodes[1].classList.toggle("alert");
+			}
+			if (form.childNodes[2].value < 1) {
+				form.childNodes[2].classList.toggle("alert");
+			}
+		}
 		event.preventDefault();
 	});
 
@@ -131,11 +160,8 @@ function createForm() {
 }
 
 const form = document.querySelector("form");
-// function handler() {
-// 	plus.removeEventListener("click", handler);
-// }
 
 plus.addEventListener("click", () => {
 	createForm();
+	main.removeChild(plus);
 });
-window.addEventListener("load", createRow);
