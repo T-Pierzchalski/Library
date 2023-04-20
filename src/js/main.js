@@ -17,11 +17,11 @@ function addBookToLibrary(title, author, pages, read) {
 	myLibrary.push(book);
 }
 
-function selectBook() {
-	myLibrary.find(Book.title === h4.value);
-}
+// function selectBook() {
+// 	myLibrary.find(Book.title === h4.value);
+// }
 
-addBookToLibrary("Złodziejka książek", "Markus Zusak", 576, "not read yet");
+//addBookToLibrary("Złodziejka książek", "Markus Zusak", 576, "not read yet");
 // addBookToLibrary(
 // 	"Harry Potter i Kamień Filozoficzny",
 // 	"J.K. Rowling",
