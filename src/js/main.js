@@ -96,6 +96,9 @@ function createForm() {
 	function isReaded() {
 		if (this.checked) {
 			this.value = "readed";
+			label.style.cssText = "color:green";
+		} else {
+			label.style.cssText = "color:black";
 		}
 	}
 	readed.addEventListener("change", isReaded);

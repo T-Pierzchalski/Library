@@ -41,7 +41,7 @@ h4 {
 }
 header {
 	width: 100%;
-	background: #000;
+	background: rgb(36, 7, 0);
 	border-radius: 100%;
 }
 
@@ -142,20 +142,14 @@ main {
 		display: flex;
 		flex-direction: column;
 		gap: 1em;
-		background: #000;
-		border: 2px solid rgb(50, 100, 100);
+		border: 2px solid rgb(36, 7, 0);
 		padding: 1em;
 		border-radius: 10px;
 		input[type="text"] {
 			text-align: center;
 			padding: 0.1em 0.3em;
-			background: rgb(126, 214, 214);
-			::placeholder {
-				color: rgb(185, 182, 182);
-			}
-		}
-		input[type="text"]::placeholder {
 			color: #fff;
+			background: rgb(36, 7, 0);
 		}
 		input[type="text"]:focus {
 			background: #000;
