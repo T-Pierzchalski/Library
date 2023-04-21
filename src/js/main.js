@@ -1,5 +1,4 @@
 const main = document.querySelector("main");
-const row = document.querySelector("row");
 const myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -53,8 +52,7 @@ function createCard() {
 			myLibrary.splice(bookId, 1);
 			main.removeChild(card);
 		});
-		if (ul.childNodes[3].textContent === "readed") {
-		} else {
+		if (ul.childNodes[3].textContent !== "readed") {
 			const readButton = document.createElement("button");
 			readButton.classList.add("read-button");
 			readButton.innerHTML = "&#x2713;";
@@ -74,7 +72,6 @@ const plus = document.querySelector(".plus");
 function createForm() {
 	const form = document.createElement("form");
 	main.appendChild(form);
-
 	for (let j = 0; j <= 2; j++) {
 		const input = document.createElement("input");
 		input.setAttribute("type", "text");
@@ -84,8 +81,8 @@ function createForm() {
 	form.childNodes[0].setAttribute("placeholder", "title");
 	form.childNodes[1].setAttribute("placeholder", "author");
 	form.childNodes[2].setAttribute("placeholder", "pages");
-
-	//readed input
+	new Number(form.childNodes[2].value);
+	// readed input
 	const label = document.createElement("label");
 	label.innerHTML = "Readed? <br>";
 	form.appendChild(label);
@@ -124,15 +121,14 @@ function createForm() {
 			main.removeChild(form);
 			main.appendChild(plus);
 		} else {
-			alert("error");
 			if (form.childNodes[0].value < 1) {
-				form.childNodes[0].classList.toggle("alert");
+				form.childNodes[0].classList.add("alert");
 			}
 			if (form.childNodes[1].value < 1) {
-				form.childNodes[1].classList.toggle("alert");
+				form.childNodes[1].classList.add("alert");
 			}
-			if (form.childNodes[2].value) {
-				form.childNodes[2].classList.toggle("alert");
+			if (form.childNodes[2].value < 1 || form.childNodes[2] === undefined) {
+				form.childNodes[2].classList.add("alert");
 			}
 		}
 		event.preventDefault();
@@ -143,13 +139,11 @@ function createForm() {
 	exit.classList.add("exit");
 	exit.textContent = "Exit";
 	form.appendChild(exit);
-	exit.addEventListener("click", function () {
+	exit.addEventListener("click", () => {
 		main.removeChild(form);
 		main.appendChild(plus);
 	});
 }
-
-const form = document.querySelector("form");
 
 plus.addEventListener("click", () => {
 	createForm();
