@@ -52,6 +52,7 @@ function createCard() {
 			myLibrary.splice(bookId, 1);
 			main.removeChild(card);
 		});
+		ul.childNodes[3].style.cssText = "color:green;";
 		if (ul.childNodes[3].textContent !== "readed") {
 			const readButton = document.createElement("button");
 			readButton.classList.add("read-button");

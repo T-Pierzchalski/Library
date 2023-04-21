@@ -9,7 +9,8 @@ html {
 	transition: all 0.3s ease-in-out;
 }
 body {
-	background: url("images/library.webp");
+	background: url("https://cdn.pixabay.com/photo/2022/05/24/11/43/home-office-7218315_960_720.png");
+	backdrop-filter: blur(3px);
 	color: #fff;
 }
 
@@ -42,25 +43,28 @@ h4 {
 header {
 	width: 100%;
 	background: rgb(36, 7, 0);
-	border-radius: 100%;
+	border-bottom-left-radius: 100%;
+	border-bottom-right-radius: 100%;
+	border-bottom: 3px solid #fff;
+	margin-bottom: 1em;
 }
 
 main {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1em;
-	justify-content: center;
+	justify-content: flex-start;
 	background-image: radial-gradient(rgba(250, 250, 250, 0.5), rgba(0, 0, 0)),
-		url("images/rack.svg");
-	background-position: top;
+		url("https://cdn.pixabay.com/photo/2013/07/13/12/50/bookshelves-160439_960_720.png");
+	background-position: top, bottom;
 	background-repeat: no-repeat;
 	background-size: cover, cover;
-	margin: 1em 5em;
+	margin: auto;
+	width: 80%;
 	padding: 2em 3em;
 	min-height: 1080px;
 	border-radius: 10%;
 	article {
-		align-items: center;
 		padding: 0.5em 0 0.5em 1em;
 		background: rgb(50, 36, 36);
 		border-radius: 10%;
@@ -115,8 +119,8 @@ main {
 		height: max-content;
 	}
 	.plus {
-		color: #000;
 		border: 3px solid black;
+		background: rgb(36, 7, 0);
 	}
 	.plus:hover {
 		font-weight: 700;
@@ -191,5 +195,58 @@ main {
 			font-size: 1em;
 			padding: 0.3em;
 		}
+	}
+}
+footer {
+	width: 100%;
+	background: rgb(36, 7, 0);
+	display: flex;
+	border-top: 3px solid #fff;
+	span {
+		font-size: 2em;
+		margin: auto;
+	}
+}
+@media screen and (max-width: 576px) {
+	html,
+	* {
+		font-size: 12px;
+	}
+	h1 {
+		letter-spacing: 0.5em;
+	}
+	h2 {
+		letter-spacing: 0;
+	}
+	main {
+		border-radius: 0;
+		padding: 1em;
+		margin: 0;
+		justify-content: space-between;
+		gap: 0;
+		width: 100%;
+		min-height: 576px;
+		article {
+			width: 45%;
+			margin: 0 !important;
+		}
+	}
+}
+@media screen and (min-width: 1440px) {
+	main {
+		padding-inline: 10em;
+		justify-content: space-between;
+		min-height: 1200px;
+		article {
+			margin-bottom: auto;
+		}
+	}
+	form {
+		margin-left: auto;
+	}
+	.plus {
+		margin-bottom: auto;
+		margin-left: auto;
+		padding: 2em 3em;
 	}
 }
