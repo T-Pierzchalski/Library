@@ -9,7 +9,7 @@ html {
 	transition: all 0.3s ease-in-out;
 }
 body {
-	background: url("/src/images/library.webp");
+	background: url("images/library.webp");
 	color: #fff;
 }
 
@@ -51,7 +51,7 @@ main {
 	gap: 1em;
 	justify-content: center;
 	background-image: radial-gradient(rgba(250, 250, 250, 0.5), rgba(0, 0, 0)),
-		url("/src/images/rack.svg");
+		url("images/rack.svg");
 	background-position: top;
 	background-repeat: no-repeat;
 	background-size: cover, cover;
