@@ -150,3 +150,11 @@ plus.addEventListener("click", () => {
 	createForm();
 	main.removeChild(plus);
 });
+
+// footer
+window.addEventListener("load", () => {
+	const footer = document.querySelector("footer");
+	if (main.style.height > 900) {
+		footer.style.position = "static";
+	}
+});

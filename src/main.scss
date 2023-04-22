@@ -12,6 +12,7 @@ body {
 	background: url("https://cdn.pixabay.com/photo/2022/05/24/11/43/home-office-7218315_960_720.png");
 	backdrop-filter: blur(3px);
 	color: #fff;
+	min-height: 100vh;
 }
 
 h1 {
@@ -62,7 +63,6 @@ main {
 	margin: auto;
 	width: 80%;
 	padding: 2em 3em;
-	min-height: 1080px;
 	border-radius: 10%;
 	article {
 		padding: 0.5em 0 0.5em 1em;
@@ -202,6 +202,8 @@ footer {
 	background: rgb(36, 7, 0);
 	display: flex;
 	border-top: 3px solid #fff;
+	position: absolute;
+	bottom: 0;
 	span {
 		font-size: 2em;
 		margin: auto;
@@ -236,7 +238,7 @@ footer {
 	main {
 		padding-inline: 10em;
 		justify-content: space-between;
-		min-height: 1200px;
+		min-height: 600px;
 		article {
 			margin-bottom: auto;
 		}
