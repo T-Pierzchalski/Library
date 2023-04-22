@@ -9,7 +9,7 @@ html {
 	transition: all 0.3s ease-in-out;
 }
 body {
-	background: url("https://cdn.pixabay.com/photo/2022/05/24/11/43/home-office-7218315_960_720.png");
+	background: url("images/library.webp");
 	backdrop-filter: blur(3px);
 	color: #fff;
 	min-height: 100vh;
@@ -56,7 +56,7 @@ main {
 	gap: 1em;
 	justify-content: flex-start;
 	background-image: radial-gradient(rgba(250, 250, 250, 0.5), rgba(0, 0, 0)),
-		url("https://cdn.pixabay.com/photo/2013/07/13/12/50/bookshelves-160439_960_720.png");
+		url("images/rack.svg");
 	background-position: top, bottom;
 	background-repeat: no-repeat;
 	background-size: cover, cover;
